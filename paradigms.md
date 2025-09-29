@@ -13,8 +13,7 @@
 
 ### Separation of source, iterator and predicate
 
-```
-#Python Code
+``` Python Code
 # Source
 words = ["Exxon", "Mobil", "Bangalore", "Bdd", "Encapsulation"]
 
