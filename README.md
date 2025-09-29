@@ -74,6 +74,104 @@ static bool StartsWithB(string word) => word.StartsWith("B");
     }
 }
 
+```
+
+### Using Closures
+```
+def starts_with(letter):
+    def predicate(word):
+        return word.startswith(letter)  # uses 'letter' from outer function
+    return predicate  # return the inner function
+
+# Create closures
+starts_with_e = starts_with("E")
+starts_with_b = starts_with("B")
+
+print(starts_with_e("Exxon"))  # True
+print(starts_with_b("Bangalore"))  # True
+
+```
+
+```
+Func<string, Func<string, bool>> StartsWith = letter =>
+{
+    return word => word.StartsWith(letter); // captures "letter"
+};
+
+var startsWithE = StartsWith("E");
+var startsWithB = StartsWith("B");
+
+Console.WriteLine(startsWithE("Exxon"));      // True
+Console.WriteLine(startsWithB("Bangalore")); // True
+
+```
+
+### Object Orientation
+```
+words = ["Exxon", "Mobil", "Bangalore", "Bdd", "Encapsulation"]
+
+# Predicate as a class
+class StartsWith:
+    def __init__(self, letter):
+        self.letter = letter
+    
+    def matches(self, word):
+        return word.startswith(self.letter)
+
+# Iterator as a function
+def filter_words(source, predicate_obj):
+    for w in source:
+        if predicate_obj.matches(w):
+            yield w
+
+# Usage
+starts_with_e = StartsWith("E")
+starts_with_b = StartsWith("B")
+
+print("Starts with E:", list(filter_words(words, starts_with_e)))
+print("Starts with B:", list(filter_words(words, starts_with_b)))
 
 
+```
+```
+using System;
+using System.Collections.Generic;
+
+class StartsWith
+{
+    private string _letter;
+
+    public StartsWith(string letter)
+    {
+        _letter = letter;
+    }
+
+    public bool Matches(string word)
+    {
+        return word.StartsWith(_letter);
+    }
+}
+
+class Program
+{
+    static IEnumerable<string> FilterWords(IEnumerable<string> source, StartsWith predicateObj)
+    {
+        foreach (var word in source)
+        {
+            if (predicateObj.Matches(word))
+                yield return word;
+        }
+    }
+
+    static void Main()
+    {
+        var words = new List<string> { "Exxon", "Mobil", "Bangalore", "Bdd", "Encapsulation" };
+
+        var startsWithE = new StartsWith("E");
+        var startsWithB = new StartsWith("B");
+
+        Console.WriteLine("Starts with E: " + string.Join(", ", FilterWords(words, startsWithE)));
+        Console.WriteLine("Starts with B: " + string.Join(", ", FilterWords(words, startsWithB)));
+    }
+}
 ```
