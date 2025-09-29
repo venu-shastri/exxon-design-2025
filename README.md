@@ -196,6 +196,15 @@ class StartsWith(Predicate):
     def matches(self, word: str) -> bool:
         return word.startswith(self.letter)
 
+# Implementation: StartsWith
+class EndsWith(Predicate):
+    def __init__(self, letter: str):
+        self.letter = letter
+    
+    def matches(self, word: str) -> bool:
+        return word.endswith(self.letter)
+
+
 # Iterator
 def filter_words(source, predicate_obj: Predicate):
     for w in source:
@@ -236,6 +245,21 @@ class StartsWith : IPredicate
     }
 }
 
+// Implementation: StartsWith
+class EndsWith : IPredicate
+{
+    private string _letter;
+
+    public StartsWith(string letter)
+    {
+        _letter = letter;
+    }
+
+    public bool Matches(string word)
+    {
+        return word.EndsWith(_letter);
+    }
+}
 class Program
 {
     // Iterator
