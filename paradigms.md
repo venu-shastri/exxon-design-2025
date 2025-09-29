@@ -40,8 +40,7 @@ print("Words starting with 'B':", result)
 
 ```
 
-```
-//C#
+``` csharp
 using System;
 using System.Collections.Generic;
 
@@ -76,7 +75,7 @@ static bool StartsWithB(string word) => word.StartsWith("B");
 ```
 
 ### Using Closures
-```
+``` python
 def starts_with(letter):
     def predicate(word):
         return word.startswith(letter)  # uses 'letter' from outer function
@@ -91,7 +90,7 @@ print(starts_with_b("Bangalore"))  # True
 
 ```
 
-```
+``` charp
 Func<string, Func<string, bool>> StartsWith = letter =>
 {
     return word => word.StartsWith(letter); // captures "letter"
