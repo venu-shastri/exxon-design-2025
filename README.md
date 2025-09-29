@@ -175,3 +175,88 @@ class Program
     }
 }
 ```
+
+### Contract Driven : using Encapsulation and Abstarction + Runtime Polymorphism
+```
+from abc import ABC, abstractmethod
+
+words = ["Exxon", "Mobil", "Bangalore", "Bdd", "Encapsulation"]
+
+# Interface
+class Predicate(ABC):
+    @abstractmethod
+    def matches(self, word: str) -> bool:
+        pass
+
+# Implementation: StartsWith
+class StartsWith(Predicate):
+    def __init__(self, letter: str):
+        self.letter = letter
+    
+    def matches(self, word: str) -> bool:
+        return word.startswith(self.letter)
+
+# Iterator
+def filter_words(source, predicate_obj: Predicate):
+    for w in source:
+        if predicate_obj.matches(w):
+            yield w
+
+# Usage
+starts_with_e = StartsWith("E")
+starts_with_b = StartsWith("B")
+
+print("Starts with E:", list(filter_words(words, starts_with_e)))
+print("Starts with B:", list(filter_words(words, starts_with_b)))
+```
+
+```
+using System;
+using System.Collections.Generic;
+
+// Interface
+interface IPredicate
+{
+    bool Matches(string word);
+}
+
+// Implementation: StartsWith
+class StartsWith : IPredicate
+{
+    private string _letter;
+
+    public StartsWith(string letter)
+    {
+        _letter = letter;
+    }
+
+    public bool Matches(string word)
+    {
+        return word.StartsWith(_letter);
+    }
+}
+
+class Program
+{
+    // Iterator
+    static IEnumerable<string> FilterWords(IEnumerable<string> source, IPredicate predicateObj)
+    {
+        foreach (var word in source)
+        {
+            if (predicateObj.Matches(word))
+                yield return word;
+        }
+    }
+
+    static void Main()
+    {
+        var words = new List<string> { "Exxon", "Mobil", "Bangalore", "Bdd", "Encapsulation" };
+
+        IPredicate startsWithE = new StartsWith("E");
+        IPredicate startsWithB = new StartsWith("B");
+
+        Console.WriteLine("Starts with E: " + string.Join(", ", FilterWords(words, startsWithE)));
+        Console.WriteLine("Starts with B: " + string.Join(", ", FilterWords(words, startsWithB)));
+    }
+}
+```
